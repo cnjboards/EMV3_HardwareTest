@@ -1,3 +1,6 @@
+// uncomment for serial debug
+//#define SERIALDEBUG
+
 #include <Arduino.h>
 #include "one_wire.h"
 
@@ -83,10 +86,15 @@ void loop() {
   // parse serial test comamnds 
   if (Serial.available() > 0) {
     char cmd[2];
-    Serial.println("Char input");
+    
+    #ifdef SERIALDEBUG
+      Serial.println("Char input");
+    #endif
+
     Serial.readBytes(cmd, 1);
     Serial.println(cmd);
     
+
     switch(cmd[0]) {
     case '1':
       esp_output();
